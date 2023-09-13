@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    // setup some semaphores
+    // Por seguranaça, remover todos os semáforos de mesmo
     sem_unlink(SEM_CONSUMER_FNAME);
     sem_unlink(SEM_PRODUCER_FNAME);
 

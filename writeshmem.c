@@ -18,7 +18,6 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    // setup some semaphores
     sem_t *sem_prod = sem_open(SEM_PRODUCER_FNAME, 0);
     if (sem_prod == SEM_FAILED)
     {
@@ -33,7 +32,6 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    // grab the shared memory block
     char *block = attach_memory_block(FILENAME, BLOCK_SIZE);
     if (block == NULL)
     {
@@ -43,10 +41,10 @@ int main(int argc, char *argv[])
 
     for (int i = 0; i < NUM_ITERATIONS; i++)
     {
-        sem_wait(sem_cons); // wait for the consumer to have an open slot.
+        sem_wait(sem_cons); // consumidor esperar
         printf("Writing: \"%s\"\n", argv[1]);
         strncpy(block, argv[1], BLOCK_SIZE);
-        sem_post(sem_prod); // signal that something has been produced.
+        sem_post(sem_prod); // sinalizar que algo foi produzido, ao read
     }
 
     sem_close(sem_prod);
